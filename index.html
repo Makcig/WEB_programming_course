@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JQuery Ajax tehtäväpohja</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/ajax.js"></script>
+      
+</head>
+
+<body>
+    <form id="haku" action="">
+        Nimi<input type="text" name="NIMI"> 
+        Osoite<input type="text" name="OSOITE">
+        <select name="ASTY_AVAIN" id="Tyyppi"></select>
+    </form>
+    <input type="button" value="Hae" id="searchBtn" class="searchBtn">
+    <div class="dataTable" id="dataTable">
+        <table class="data" id="data">
+            <thead>
+                <tr>
+                    <th>Nimi</th>
+                    <th>Osoite</th>
+                    <th>Postinumero</th>
+                    <th>Postitoimipaikka</th>
+                    <th>Luontipäivämäärä</th>
+                    <th>Asiakastyyppi</th>
+                    <th style="min-width: 100px; max-width: 125px;"><!--poista-näppäimet tähän sarakkeeseen--></th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
