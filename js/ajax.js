@@ -4,7 +4,7 @@ $(document).ready(function () {
         $("#data tr#elements").remove();
         if(document.getElementById("Tyyppi").value == "all"){ //jos valittu "kaikki" haku tapahtu vaan inputien kautta
             $.get({
-                url: `http://127.0.0.1:3002/Asiakas?` + $(fromform + ` input`).serialize(), //Tehtävä 33
+                url: `http://127.0.0.1:3002/Asiakas?` + $(fromform + ` input`).serialize(),
                 success: (result) => {
                     showResultInTable(result);
                 },
@@ -15,7 +15,7 @@ $(document).ready(function () {
             });
         }else{
             $.get({
-                url: `http://127.0.0.1:3002/Asiakas?` + $(fromform).serialize(), //Tehtävä 33
+                url: `http://127.0.0.1:3002/Asiakas?` + $(fromform).serialize(),
                 success: (result) => {
                     showResultInTable(result);
                 },
@@ -31,7 +31,7 @@ $(document).ready(function () {
         fetch(`form#haku`);
     });
 
-    // Haetaan asiakastyypit (Tehtävä 34)
+    // Haetaan asiakastyypit
     $.get("http://127.0.0.1:3002/Types", function(data){
         var addOpt = '<option value="all">Kaikki</option>';
         for(var x of data){
@@ -44,7 +44,7 @@ $(document).ready(function () {
 // Tuo haun tuloksen table-elementtiin. Jotain kannattaa tehdä, jotta taulukkoon ei tulisi samat tiedot
 showResultInTable = (result) => {
     result.forEach(element => {
-        let trstr = "<tr id='elements'><td>" + element.NIMI + "</td>"; // id jolla tyhjennetään taulukkon
+        let trstr = "<tr id='elements'><td>" + element.NIMI + "</td>";
         trstr += "<td>" + element.OSOITE + "</td>";
         trstr += "<td>" + element.POSTINRO + "</td>";
         trstr += "<td>" + element.POSTITMP + "</td>";
