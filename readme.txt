@@ -1,5 +1,5 @@
 Eli tiedostot jossa on kotitehtävät:
-js/ajax.js
+js/ajax.js          (Eli tiedosto ajax.js pitäisi olla js/ kansiossa)
 index.html
 customerController.js
 server.js
