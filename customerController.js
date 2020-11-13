@@ -30,7 +30,7 @@ module.exports =
 
     },
 
-    fetchAll: function(req, res){
+    fetchCustomers: function(req, res){
       var nimi = req.query.NIMI;  
       var osoite = req.query.OSOITE;
       var asty_avain = req.query.ASTY_AVAIN;
@@ -53,27 +53,56 @@ module.exports =
           res.json(results);
         }
       });
-        /*console.log("Body = " + JSON.stringify(req.body));
-        console.log("Params = " + JSON.stringify(req.query));
-        console.log(req.query.nimi);
-
-      res.send("Kutsuttiin fetchAll");*/
     },
 
+    // Tehtävä 4
     create: function(req, res){
-      //connection.query...
-      console.log("Data = " + JSON.stringify(req.body));
-      console.log(req.body.nimi);
-      res.send("Kutsuttiin create");
+      var nimi = req.body.NIMI;  
+      var osoite = req.body.OSOITE;
+      var postinro = req.body.POSTINRO;
+      var postitmp = req.body.POSTITMP;
+      var asty_avain = req.body.ASTY_AVAIN;
+      if((nimi == "" || nimi == null) || (osoite == "" || osoite == null) || (postinro == "" || postinro == null) || (postitmp == "" || postitmp == null)){
+        res.status(400); // virhellä 400 ei toimii xhr.status tarkistus käyttöliitymässä, en vielä saanu selvitettyä miksi.
+        res.json({"status": "Ei tyhjiä kentiä"});
+      }
+      else{
+      var sql = "INSERT INTO asiakas (nimi, osoite, postinro, postitmp, luontipvm, asty_avain)"
+      sql += " VALUES ('" + nimi + "', '" + osoite + "', '" + postinro + "', '" + postitmp + "', curDate(), '" + asty_avain + "')";
+      connection.query(sql, function(error, results, fields){
+        if ( error ){
+          console.log("Virhe lisäämisessä asiakasta tauluun: " + error);
+          res.status(500);
+          res.json({"status:" : "ei toimii"});
+        }
+        else
+        {
+          res.status(201);
+          console.log("Data = " + JSON.stringify(results));
+          res.json("Lisääminen onnistui.");
+        }
+      });
+      }
     },
 
     update: function(req, res){
       console.log("kek");
     },
 
+    // Tehtävä 6
     delete : function (req, res) {
-      console.log("Body = " + JSON.stringify(req.body));
-      console.log("Params = " + JSON.stringify(req.params));
-        res.send("Kutsuttiin delete");
+      var avain = req.params.id;
+      connection.query("DELETE FROM asiakas WHERE avain=" + avain, function(error, results, fields){
+        if ( error ){
+          console.log("Virhe asiakkaan poistossa: " + error);
+          res.status(500);
+          res.json({"status:" : "ei toimii"});
+        }
+        else
+        {
+          console.log("Data = " + JSON.stringify(results));
+          res.json("Poisto onnistui.");
+        }
+      })
     }
 }

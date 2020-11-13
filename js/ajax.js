@@ -34,11 +34,68 @@ $(document).ready(function () {
     // Haetaan asiakastyypit
     $.get("http://127.0.0.1:3002/Types", function(data){
         var addOpt = '<option value="all">Kaikki</option>';
+        var addOptLis = '';
         for(var x of data){
             addOpt += '<option value=' + x.Avain + '>' + x.Selite + '</option>';
+            addOptLis += '<option value=' + x.Avain + '>' + x.Selite + '</option>';
         }
         $("#Tyyppi").html(addOpt);
+        $("#Tyyppi_lis").html(addOptLis);
     });
+
+
+    $("#lisaaBtn").click(() => {
+        dialog.dialog( "open" );
+    });
+
+    dialog = $( "#dialog-form" ).dialog({
+        autoOpen: false,
+        height: 540,
+        width: 350,
+        modal: true,
+        buttons: {
+            "Lisää": function () {
+                $.ajax({
+                    type: "POST",
+                    url: "http://127.0.0.1:3002/Asiakas",
+                    data: $(`form#lisaus`).serialize(),
+                    success: function(data){
+                        alert(data);
+                        fetch(`form#lisaus`);
+                        dialog.dialog( "close" );
+                    },
+                    error: function(jqXHR, textStatus, errorThrown){
+                        if(jqXHR.status == 400){
+                            alert("Kaikki kentät pitäis olla täytetty")
+                        }
+                        else{
+                            alert("Jotain epäonnistunut");
+                        }
+                    }
+                })
+            },
+            Cancel: function() {
+                dialog.dialog( "close" );
+            } 
+        }
+    });
+    // Tehtävä 7
+    poista = (avain) => {
+
+        $.ajax({
+            url: 'http://127.0.0.1:3002/Asiakas/' + avain,
+            type: 'DELETE',
+            contentType: 'application/json',
+            success: (function(result) {  // Tehtävä 36
+                fetch(`form#haku`);
+                console.log(result);       
+            }),
+            error:  (function(ajaxContext){
+                alert(ajaxContext.responseText);
+            })
+            
+        });
+    }
 });
 
 // Tuo haun tuloksen table-elementtiin. Jotain kannattaa tehdä, jotta taulukkoon ei tulisi samat tiedot
@@ -51,6 +108,7 @@ showResultInTable = (result) => {
         trstr += "<td>" + element.LUONTIPVM + "</td>";
         // Tälle voisi olla selkokielinen asiakastyyppi:
         trstr += "<td>" + element.ASTY_AVAIN + "</td>";
+        trstr += "<td><input type='submit' value='Poista' onclick='poista(" + element.AVAIN + ")'></td>";
         trstr += "</tr>";
         $('#data tbody').append(trstr);
     });

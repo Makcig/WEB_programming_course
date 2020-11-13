@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JQuery Ajax tehtäväpohja</title>
+    <style>
+        #dialog-form { display:block; }
+        input.text { margin-bottom:8px; width:95%; padding: .4em; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+    </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -19,6 +24,7 @@
         <select name="ASTY_AVAIN" id="Tyyppi"></select>
     </form>
     <input type="button" value="Hae" id="searchBtn" class="searchBtn">
+    <input type="button" value="Lisää" id="lisaaBtn" class="lisaaBtn">
     <div class="dataTable" id="dataTable">
         <table class="data" id="data">
             <thead>
@@ -37,6 +43,26 @@
             </tbody>
         </table>
     </div>
+    <div id="dialog-form" title="Lisää uusi henkilö"> <!-- Tehtävä 37-38-->
+        <form id="lisaus">
+            <label for="nimi">Nimi</label>
+            <input type="text" name="NIMI" id="nimi" value="" class="text ui-widget-content ui-corner-all">
+
+            <label for="osoite">Osoite</label>
+            <input type="text" name="OSOITE" id="osoite" value="" class="text ui-widget-content ui-corner-all">
+
+            <label for="postinro">Postinumero</label>
+            <input type="text" name="POSTINRO" id="postinro" value="" class="text ui-widget-content ui-corner-all">
+
+            <label for="postitmp">Postitoimipaikka</label>
+            <input type="text" name="POSTITMP" id="postitmp" value="" class="text ui-widget-content ui-corner-all">
+
+            <label for="Tyyppi_lis">Asiakastyyppi</label>
+            <select name="ASTY_AVAIN" id="Tyyppi_lis"></select>
+
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+        </form>
+      </div>
 </body>
 
 </html>
