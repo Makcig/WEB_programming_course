@@ -29,7 +29,7 @@ module.exports =
     });
 
     },
-
+    // Tehtävä 2 ja 3
     fetchCustomers: function(req, res){
       var nimi = req.query.NIMI;  
       var osoite = req.query.OSOITE;

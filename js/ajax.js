@@ -108,6 +108,7 @@ showResultInTable = (result) => {
         trstr += "<td>" + element.LUONTIPVM + "</td>";
         // Tälle voisi olla selkokielinen asiakastyyppi:
         trstr += "<td>" + element.ASTY_AVAIN + "</td>";
+        // Tehtävä 6
         trstr += "<td><input type='submit' value='Poista' onclick='poista(" + element.AVAIN + ")'></td>";
         trstr += "</tr>";
         $('#data tbody').append(trstr);
