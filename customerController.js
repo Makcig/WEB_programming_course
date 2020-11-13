@@ -62,8 +62,9 @@ module.exports =
       var postinro = req.body.POSTINRO;
       var postitmp = req.body.POSTITMP;
       var asty_avain = req.body.ASTY_AVAIN;
+      // Tehtävä 9
       if((nimi == "" || nimi == null) || (osoite == "" || osoite == null) || (postinro == "" || postinro == null) || (postitmp == "" || postitmp == null)){
-        res.status(400); // virhellä 400 ei toimii xhr.status tarkistus käyttöliitymässä, en vielä saanu selvitettyä miksi.
+        res.status(400);
         res.json({"status": "Ei tyhjiä kentiä"});
       }
       else{

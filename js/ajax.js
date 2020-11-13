@@ -26,7 +26,6 @@ $(document).ready(function () {
         }
     }
 
-    // bindataan click-event
     $('#searchBtn').click(() => {
         fetch(`form#haku`);
     });
@@ -48,6 +47,7 @@ $(document).ready(function () {
         dialog.dialog( "open" );
     });
 
+    // Lisääminen (Tehtävä 4)
     dialog = $( "#dialog-form" ).dialog({
         autoOpen: false,
         height: 540,
@@ -86,7 +86,7 @@ $(document).ready(function () {
             url: 'http://127.0.0.1:3002/Asiakas/' + avain,
             type: 'DELETE',
             contentType: 'application/json',
-            success: (function(result) {  // Tehtävä 36
+            success: (function(result) {
                 fetch(`form#haku`);
                 console.log(result);       
             }),
