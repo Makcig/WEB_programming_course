@@ -8,61 +8,82 @@
     <title>JQuery Ajax tehtäväpohja</title>
     <style>
         #dialog-form { display:block; }
-        input.text { margin-bottom:8px; width:95%; padding: .4em; }
+        input.text { margin-bottom:8px; width:80%; padding: .4em; }
         .ui-dialog .ui-state-error { padding: .3em; }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="js/ajax.js"></script>
 </head>
 
-<body>
-    <form id="haku" action="">
-        Nimi<input type="text" name="NIMI"> 
-        Osoite<input type="text" name="OSOITE">
-        <select name="ASTY_AVAIN" id="Tyyppi"></select>
-    </form>
-    <input type="button" value="Hae" id="searchBtn" class="searchBtn">
-    <input type="button" value="Lisää" id="lisaaBtn" class="lisaaBtn">
-    <div class="dataTable" id="dataTable">
-        <table class="data" id="data">
-            <thead>
-                <tr>
-                    <th>Nimi</th>
-                    <th>Osoite</th>
-                    <th>Postinumero</th>
-                    <th>Postitoimipaikka</th>
-                    <th>Luontipäivämäärä</th>
-                    <th>Asiakastyyppi</th>
-                    <th style="min-width: 100px; max-width: 125px;"></th>
-                </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
+<body class="bg-dark">
+<div role="main" class="container-fluid" >
+    <div class="row" >
+        <div class="col-3" >
+            <form id="haku" class="p-3 mb-2 bg-dark text-white">
+                <h6>ASIAKASHAKU</h6><hr style="background-color: #5c646d;">
+                <div class="form-group">
+                    <label for="NIMI">Nimi</label>
+                    <input type="text" name="NIMI" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="OSOITE">Osoite</label>
+                    <input type="text" name="OSOITE" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="Tyyppi">Tyyppi</label>
+                    <select name="ASTY_AVAIN" id="Tyyppi" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <input type="button" value="Hae" id="searchBtn" class="btn btn-primary">
+                    <input type="button" value="Lisää asiakas" id="lisaaBtn" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+        
+        <div class="col-9">
+            <div class="dataTable" id="dataTable">
+                <table class="table table-dark" id="data">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Nimi</th>
+                            <th scope="col">Osoite</th>
+                            <th scope="col">Postinumero</th>
+                            <th scope="col">Postittmp</th>
+                            <th scope="col">Luontipvm</th>
+                            <th scope="col">Asiakastyyppi</th>
+                            <th scope="col" style="min-width: 100px; max-width: 125px;">Poisto</th>
+                        </tr>
+                    </thead>
+                        <tbody></tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div id="dialog-form" title="Lisää uusi henkilö">
-        <form id="lisaus">
-            <label for="nimi">Nimi</label>
-            <input type="text" name="NIMI" id="nimi" value="" class="text ui-widget-content ui-corner-all">
+</div>
 
-            <label for="osoite">Osoite</label>
-            <input type="text" name="OSOITE" id="osoite" value="" class="text ui-widget-content ui-corner-all">
+<div id="dialog-form" title="Lisää uusi henkilö">
+    <form id="lisaus">
+        <label for="nimi">Nimi</label>
+        <input type="text" name="NIMI" id="nimi" value="" class="form-control">
 
-            <label for="postinro">Postinumero</label>
-            <input type="text" name="POSTINRO" id="postinro" value="" class="text ui-widget-content ui-corner-all">
+        <label for="osoite">Osoite</label>
+        <input type="text" name="OSOITE" id="osoite" value="" class="form-control">
 
-            <label for="postitmp">Postitoimipaikka</label>
-            <input type="text" name="POSTITMP" id="postitmp" value="" class="text ui-widget-content ui-corner-all">
+        <label for="postinro">Postinumero</label>
+        <input type="text" name="POSTINRO" id="postinro" value="" class="form-control">
 
-            <label for="Tyyppi_lis">Asiakastyyppi</label>
-            <select name="ASTY_AVAIN" id="Tyyppi_lis"></select>
+        <label for="postitmp">Postitoimipaikka</label>
+        <input type="text" name="POSTITMP" id="postitmp" value="" class="form-control">
 
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
-        </form>
-      </div>
+        <label for="Tyyppi_lis">Asiakastyyppi</label>
+        <select name="ASTY_AVAIN" id="Tyyppi_lis" class="form-control"></select>
+        <p style="color:red; font-size:11px">*Kaikki kentän ovat pakollisiä</p>
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </form>
+  </div>
 </body>
 
 </html>

@@ -87,6 +87,7 @@ $(document).ready(function () {
             type: 'DELETE',
             contentType: 'application/json',
             success: (function(result) {
+                alert("Poisto onnistui.");
                 fetch(`form#haku`);
                 console.log(result);       
             }),
@@ -98,19 +99,20 @@ $(document).ready(function () {
     }
 });
 
-// Tuo haun tuloksen table-elementtiin. Jotain kannattaa tehdä, jotta taulukkoon ei tulisi samat tiedot
+
 showResultInTable = (result) => {
+    var tyyppi="";
     result.forEach(element => {
-        let trstr = "<tr id='elements'><td>" + element.NIMI + "</td>";
+        let trstr = "<tr id='elements'><td scope='row'>" + element.NIMI + "</td>";
         trstr += "<td>" + element.OSOITE + "</td>";
         trstr += "<td>" + element.POSTINRO + "</td>";
         trstr += "<td>" + element.POSTITMP + "</td>";
         trstr += "<td>" + element.LUONTIPVM + "</td>";
-        // Tälle voisi olla selkokielinen asiakastyyppi:
         trstr += "<td>" + element.ASTY_AVAIN + "</td>";
         // Tehtävä 6
-        trstr += "<td><input type='submit' value='Poista' onclick='poista(" + element.AVAIN + ")'></td>";
+        trstr += "<td><input type='submit' class='btn btn-primary' value='Poista' onclick='poista(" + element.AVAIN + ")'></td>";
         trstr += "</tr>";
         $('#data tbody').append(trstr);
+        //$.get("http://127.0.0.1:3002/Types", function(data){tyyppi= String(Object.values(data)[element.ASTY_AVAIN-1].Selite)});
     });
 }
