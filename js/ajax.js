@@ -40,16 +40,17 @@ $(document).ready(function () {
         }
         $("#Tyyppi").html(addOpt);
         $("#Tyyppi_lis").html(addOptLis);
+        $("#Tyyppi_edit").html(addOptLis);
     });
 
 
     $("#lisaaBtn").click(() => {
-        dialog.dialog( "open" );
+        lisaus.dialog( "open" );
     });
 
     // Lisääminen (Tehtävä 4)
-    dialog = $( "#dialog-form" ).dialog({
-        autoOpen: false,
+    lisaus = $( "#dialog-form" ).dialog({
+        autoOpen: false,    
         height: 540,
         width: 350,
         modal: true,
@@ -62,11 +63,11 @@ $(document).ready(function () {
                     success: function(data){
                         alert(data);
                         fetch(`form#lisaus`);
-                        dialog.dialog( "close" );
+                        lisaus.dialog( "close" );
                     },
-                    error: function(jqXHR, textStatus, errorThrown){
-                        if(jqXHR.status == 400){
-                            alert("Kaikki kentät pitäis olla täytetty")
+                    error: function(data){
+                        if(data.status == 400){
+                            alert(data.responseText);
                         }
                         else{
                             alert("Jotain epäonnistunut");
@@ -75,7 +76,7 @@ $(document).ready(function () {
                 })
             },
             Cancel: function() {
-                dialog.dialog( "close" );
+                lisaus.dialog( "close" );
             } 
         }
     });
@@ -96,12 +97,60 @@ $(document).ready(function () {
             })
             
         });
-    }
+    },
+
+    // Тehtävä 10
+    edit = (avain) =>{
+        $.ajax({
+            url: `http://127.0.0.1:3002/Asiakas/` + avain,
+            type: 'GET',
+            //contentType: 'application/json',
+            success: (result) => {
+                result.forEach(element => {
+                    $("#avain_edit").text(element.AVAIN);
+                    $("#nimi_edit").val(element.NIMI);
+                    $("#osoite_edit").val(element.OSOITE);
+                    $("#postinro_edit").val(element.POSTINRO);
+                    $("#postitmp_edit").val(element.POSTITMP);
+                    $("#Tyyppi_edit").val(element.ASTY_AVAIN);
+                    return;
+                })
+            },
+            error: (function(ajaxContext){
+                console.log("Virhe haettaessa")
+            })
+        });
+        editwindow.data("id", avain).dialog( "open" );
+    },
+    editwindow = $( "#dialog-edit" ).dialog({
+        autoOpen: false,
+        height: 540,
+        width: 350,
+        modal: true,
+        buttons: {
+            "Muokata": function () {
+                $.ajax({
+                    type: "PUT",
+                    url: "http://127.0.0.1:3002/Asiakas/" + $(this).data("id"),
+                    data: $(`form#edit-form`).serialize(),
+                    success: function(data){
+                        alert(data);
+                        editwindow.dialog( "close" );
+                        fetch(`form#edit-form`);
+                    },
+                    error: function(data){
+                        alert("Jotain epäonnistunut");
+                    }
+                })
+            },
+            Cancel: function() {
+                editwindow.dialog( "close" );
+            } 
+        }
+    })
 });
 
-
 showResultInTable = (result) => {
-    var tyyppi="";
     result.forEach(element => {
         let trstr = "<tr id='elements'><td scope='row'>" + element.NIMI + "</td>";
         trstr += "<td>" + element.OSOITE + "</td>";
@@ -111,6 +160,8 @@ showResultInTable = (result) => {
         trstr += "<td>" + element.ASTY_AVAIN + "</td>";
         // Tehtävä 6
         trstr += "<td><input type='submit' class='btn btn-primary' value='Poista' onclick='poista(" + element.AVAIN + ")'></td>";
+        // Tehtävä 10
+        trstr += "<td><input type='button' class='btn btn-primary' value='Edit' onclick='edit(" + element.AVAIN + ")'></td>";
         trstr += "</tr>";
         $('#data tbody').append(trstr);
         //$.get("http://127.0.0.1:3002/Types", function(data){tyyppi= String(Object.values(data)[element.ASTY_AVAIN-1].Selite)});

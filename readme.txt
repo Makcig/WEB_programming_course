@@ -18,3 +18,12 @@ Tiedostot ovat samat kun edellisessä tehtävässä. Lisäksi on kuvat T5 ja T8,
 Koodin sisällä kommenteissä näkyy missä kohdassa ja mikä tehtävä alkaa.
 
 Tiedostoa server.js ei ole koskettu
+
+
+Tehtävät 3
+Asiakkaan muokkaus lisätty.
+server.js - lisätty /asiakas/:id get metodi, jolla voi ottaa asikas tiedot asiakas-avaimella
+customerController.js - lisätty metodi getCustomerById() jolla haetaan tiedot, ja update() jolla tapahtuu itse muokkaus
+index.html - lisätty uusi muokkaus-formi
+ajax.js - lisätty "muokka" painike, sekä id:llä tiedon haku ja muokkaus metodit.
+readme.txt - päivitetty.

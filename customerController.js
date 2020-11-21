@@ -65,29 +65,41 @@ module.exports =
       // Tehtävä 9
       if((nimi == "" || nimi == null) || (osoite == "" || osoite == null) || (postinro == "" || postinro == null) || (postitmp == "" || postitmp == null)){
         res.status(400);
-        res.json({"status": "Ei tyhjiä kentiä"});
+        res.json({"status": "Ei onnistunut", "error" : "Kaikki kentät pitäisi olla täytetty"});
       }
       else{
-      var sql = "INSERT INTO asiakas (nimi, osoite, postinro, postitmp, luontipvm, asty_avain)"
-      sql += " VALUES ('" + nimi + "', '" + osoite + "', '" + postinro + "', '" + postitmp + "', curDate(), '" + asty_avain + "')";
+        var sql = "INSERT INTO asiakas (nimi, osoite, postinro, postitmp, luontipvm, asty_avain)"
+        sql += " VALUES ('" + nimi + "', '" + osoite + "', '" + postinro + "', '" + postitmp + "', curDate(), '" + asty_avain + "')";
+        connection.query(sql, function(error, results, fields){
+          if ( error ){
+            console.log("Virhe lisäämisessä asiakasta tauluun: " + error);
+            res.status(500);
+            res.json({"status:" : "ei toimii"});
+          }
+          else
+          {
+            res.status(201);
+            console.log("Data = " + JSON.stringify(results));
+            res.json("Lisääminen onnistui.");
+          }
+        });
+      }
+    },
+    // Tehtävä 10
+    update: function(req, res){
+      var avain = req.params.id;
+      var sql = "UPDATE asiakas SET nimi='" + req.body.NIMI + "', osoite='" + req.body.OSOITE + "', postinro='" + req.body.POSTINRO + "', postitmp='" + req.body.POSTITMP + "', asty_avain='" + req.body.ASTY_AVAIN + "' WHERE avain=" + avain;
       connection.query(sql, function(error, results, fields){
-        if ( error ){
-          console.log("Virhe lisäämisessä asiakasta tauluun: " + error);
+        if(error){
+          console.log("Virhe asiakkaan muokkauksessa: " + error);
           res.status(500);
           res.json({"status:" : "ei toimii"});
         }
-        else
-        {
-          res.status(201);
-          console.log("Data = " + JSON.stringify(results));
-          res.json("Lisääminen onnistui.");
+        else{
+          res.json("Muokkaus onnistui");
+          res.status(202);
         }
       });
-      }
-    },
-
-    update: function(req, res){
-      console.log("kek");
     },
 
     // Tehtävä 6
@@ -103,6 +115,22 @@ module.exports =
         {
           console.log("Data = " + JSON.stringify(results));
           res.json("Poisto onnistui.");
+        }
+      })
+    },
+    // Muokkausta varten
+    getCustomerById : function(req, res){
+      var avain = req.params.id;
+      connection.query("SELECT * FROM asiakas WHERE avain=" + avain, function(error, results, fields){
+        if ( error ){
+          console.log("Virhe asiakkaan otossa: " + error);
+          res.status(500);
+          res.json({"status:" : "ei toimii"});
+        }
+        else
+        {
+          console.log("Data = " + JSON.stringify(results));
+          res.json(results);
         }
       })
     }

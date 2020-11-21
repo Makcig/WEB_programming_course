@@ -51,7 +51,8 @@ app.route('/Asiakas')
 
 app.route('/Asiakas/:id')
     .put(customerController.update)
-    .delete(customerController.delete);
+    .delete(customerController.delete)
+    .get(customerController.getCustomerById); // muokkausta varten
 //
 
 app.get('/maali', function(request, response){

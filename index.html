@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JQuery Ajax tehtäväpohja</title>
     <style>
-        #dialog-form { display:block; }
+        #dialog-form #dialog-edit { display:block; }
         input.text { margin-bottom:8px; width:80%; padding: .4em; }
         .ui-dialog .ui-state-error { padding: .3em; }
     </style>
@@ -55,6 +55,7 @@
                             <th scope="col">Luontipvm</th>
                             <th scope="col">Asiakastyyppi</th>
                             <th scope="col" style="min-width: 100px; max-width: 125px;">Poisto</th>
+                            <th scope="col" style="min-width: 100px; max-width: 125px;">Edit</th>
                         </tr>
                     </thead>
                         <tbody></tbody>
@@ -64,7 +65,7 @@
     </div>
 </div>
 
-<div id="dialog-form" title="Lisää uusi henkilö">
+<div id="dialog-form" title="Lisää uusi asiakas">
     <form id="lisaus">
         <label for="nimi">Nimi</label>
         <input type="text" name="NIMI" id="nimi" value="" class="form-control">
@@ -81,6 +82,28 @@
         <label for="Tyyppi_lis">Asiakastyyppi</label>
         <select name="ASTY_AVAIN" id="Tyyppi_lis" class="form-control"></select>
         <p style="color:red; font-size:11px">*Kaikki kentän ovat pakollisiä</p>
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </form>
+  </div>
+
+  <div id="dialog-edit" title="Muokka asiakkaan">
+    <form id="edit-form">
+        <label for="id">Avain: </label>
+        <label id="avain_edit"></label><br>
+        <label for="nimi">Nimi</label>
+        <input type="text" name="NIMI" id="nimi_edit" value="" class="form-control">
+
+        <label for="osoite">Osoite</label>
+        <input type="text" name="OSOITE" id="osoite_edit" value="" class="form-control">
+
+        <label for="postinro">Postinumero</label>
+        <input type="text" name="POSTINRO" id="postinro_edit" value="" class="form-control">
+
+        <label for="postitmp">Postitoimipaikka</label>
+        <input type="text" name="POSTITMP" id="postitmp_edit" value="" class="form-control">
+
+        <label for="Tyyppi_lis">Asiakastyyppi: </label>
+        <select name="ASTY_AVAIN" id="Tyyppi_edit" class="form-control"></select>
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
     </form>
   </div>
